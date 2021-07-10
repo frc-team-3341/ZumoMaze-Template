@@ -6,7 +6,6 @@ Zumo32U4LCD lcd;
 unsigned long startTime;
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(1152000);
   motors.setSpeeds(0, 0);
   lcd.clear();
   startTime = millis();
@@ -14,11 +13,13 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+  //Activity 1: Change the speeds to make the robot drive straight for 2 seconds
+  //Measure the distance travelled to determine a speed, so that distances can be converted into time
+  goForward(2, 200, 200);
  
-  goForward(2);
- 
-  //Activity 2: Uncomment the turnRobotRight(0.5) command and adjust the time value to make the zumobot turn right for 
-  //turnRobotRight(0.5);
+  //Activity 2: Uncomment the turnRobotRight(0.5) command and adjust the time value to make the zumobot turn right for 90 degrees
+  //turnRobotRight(0.5, 200, -200);
 
   //Add on goForward(), turnLeft(), and turnRight() commands here to get the zumobot to navigate the maze
 
@@ -31,22 +32,20 @@ void loop() {
 }
 
 //method to make the robot drive forward (delayTime is in seconds)
-void goForward(double delayTime) {
-  //Activity 1: Change the speeds to make the robot drive straight for 2 seconds
-  //Measure the distance travelled to determine a speed, so that distances can be converted into time
-  motors.setSpeeds(200, 200);
+void goForward(double delayTime, double leftPower, double rightPower) {
+  motors.setSpeeds(leftPower, rightPower);
   delay(delayTime*1000.0);
 }
 
 //method to make the robot turn left/counterclockwise (delayTime is in seconds)
-void turnRobotLeft(double delayTime) {
-  motors.setSpeeds(-200, 200);
+void turnRobotLeft(double delayTime, double leftPower, double rightPower) {
+  motors.setSpeeds(leftPower, rightPower);
   delay(delayTime*1000.0);
 }
 
 //method to make the robot turn right/clockwise (delayTime is in seconds)
-void turnRobotRight(double delayTime) {
-  motors.setSpeeds(200, -200);
+void turnRobotRight(double delayTime, double leftPower, double rightPower) {
+  motors.setSpeeds(leftPower, rightPower);
   delay(delayTime*1000.0);
 }
 
